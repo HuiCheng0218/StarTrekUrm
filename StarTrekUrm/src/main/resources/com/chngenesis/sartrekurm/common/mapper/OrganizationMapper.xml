@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chngenesis.sartrekurm.common.mapper.OrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.chngenesis.sartrekurm.common.entity.Organization">
+    <id column="to_id" jdbcType="VARCHAR" property="id" />
+    <result column="to_name" jdbcType="VARCHAR" property="name" />
+    <result column="to_chargeman" jdbcType="VARCHAR" property="chargeman" />
+    <result column="to_address" jdbcType="VARCHAR" property="address" />
+    <result column="to_creatime" jdbcType="TIMESTAMP" property="creatime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    to_id, to_name, to_chargeman, to_address, to_creatime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_organization
+    where to_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_organization
+    where to_id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chngenesis.sartrekurm.common.entity.Organization">
+    insert into tbl_organization (to_id, to_name, to_chargeman, 
+      to_address, to_creatime)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{chargeman,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{creatime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chngenesis.sartrekurm.common.entity.Organization">
+    insert into tbl_organization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        to_id,
+      </if>
+      <if test="name != null">
+        to_name,
+      </if>
+      <if test="chargeman != null">
+        to_chargeman,
+      </if>
+      <if test="address != null">
+        to_address,
+      </if>
+      <if test="creatime != null">
+        to_creatime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeman != null">
+        #{chargeman,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null">
+        #{creatime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chngenesis.sartrekurm.common.entity.Organization">
+    update tbl_organization
+    <set>
+      <if test="name != null">
+        to_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeman != null">
+        to_chargeman = #{chargeman,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        to_address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null">
+        to_creatime = #{creatime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where to_id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chngenesis.sartrekurm.common.entity.Organization">
+    update tbl_organization
+    set to_name = #{name,jdbcType=VARCHAR},
+      to_chargeman = #{chargeman,jdbcType=VARCHAR},
+      to_address = #{address,jdbcType=VARCHAR},
+      to_creatime = #{creatime,jdbcType=TIMESTAMP}
+    where to_id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

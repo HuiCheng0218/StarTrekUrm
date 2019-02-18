@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chngenesis.sartrekurm.common.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.chngenesis.sartrekurm.common.entity.Account">
+    <id column="ta_id" jdbcType="VARCHAR" property="id" />
+    <result column="ta_username" jdbcType="VARCHAR" property="username" />
+    <result column="ta_duties" jdbcType="VARCHAR" property="duties" />
+    <result column="ta_birthday" jdbcType="DATE" property="birthday" />
+    <result column="ta_nation" jdbcType="VARCHAR" property="nation" />
+    <result column="ta_gender" jdbcType="INTEGER" property="gender" />
+    <result column="ta_phonenum" jdbcType="VARCHAR" property="phonenum" />
+    <result column="ta_email" jdbcType="VARCHAR" property="email" />
+    <result column="ta_salt" jdbcType="VARCHAR" property="salt" />
+    <result column="ta_password" jdbcType="VARCHAR" property="password" />
+    <result column="ta_creatime" jdbcType="TIMESTAMP" property="creatime"/>
+    <result column="ta_org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="ta_del" jdbcType="INTEGER" property="del" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    ta_id, ta_username, ta_duties, ta_birthday, ta_nation, ta_gender, ta_phonenum, ta_email, 
+    ta_salt, ta_password, ta_creatime, ta_org_id, ta_del
+  </sql>
+  <!-- /////自定义SQL开始///// -->
+
+
+  <!-- 根据电话号码查询 -->
+  <select id="selecByPonenum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_account
+    where ta_phonenum = #{phonenum,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据邮箱查询 -->
+  <select id="selecByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_account
+    where ta_email = #{email,jdbcType=VARCHAR}
+  </select>
+
+
+  <!-- \\\\\自定义SQL结束\\\\\ -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_account
+    where ta_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_account
+    where ta_id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chngenesis.sartrekurm.common.entity.Account">
+    insert into tbl_account (ta_id, ta_username, ta_duties, 
+      ta_birthday, ta_nation, ta_gender, 
+      ta_phonenum, ta_email, ta_salt, 
+      ta_password, ta_creatime, ta_org_id, ta_del
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{duties,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{nation,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{phonenum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{creatime,jdbcType=TIMESTAMP}, #{orgId,jdbcType=VARCHAR}, #{del,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chngenesis.sartrekurm.common.entity.Account">
+    insert into tbl_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ta_id,
+      </if>
+      <if test="username != null">
+        ta_username,
+      </if>
+      <if test="duties != null">
+        ta_duties,
+      </if>
+      <if test="birthday != null">
+        ta_birthday,
+      </if>
+      <if test="nation != null">
+        ta_nation,
+      </if>
+      <if test="gender != null">
+        ta_gender,
+      </if>
+      <if test="phonenum != null">
+        ta_phonenum,
+      </if>
+      <if test="email != null">
+        ta_email,
+      </if>
+      <if test="salt != null">
+        ta_salt,
+      </if>
+      <if test="password != null">
+        ta_password,
+      </if>
+      <if test="creatime != null">
+        ta_creatime,
+      </if>
+      <if test="orgId != null">
+        ta_org_id,
+      </if>
+      <if test="del != null">
+        ta_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="duties != null">
+        #{duties,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phonenum != null">
+        #{phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null">
+        #{creatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chngenesis.sartrekurm.common.entity.Account">
+    update tbl_account
+    <set>
+      <if test="username != null">
+        ta_username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="duties != null">
+        ta_duties = #{duties,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        ta_birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="nation != null">
+        ta_nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        ta_gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phonenum != null">
+        ta_phonenum = #{phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        ta_email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        ta_salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        ta_password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null">
+        ta_creatime = #{creatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgId != null">
+        ta_org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        ta_del = #{del,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ta_id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chngenesis.sartrekurm.common.entity.Account">
+    update tbl_account
+    set ta_username = #{username,jdbcType=VARCHAR},
+      ta_duties = #{duties,jdbcType=VARCHAR},
+      ta_birthday = #{birthday,jdbcType=DATE},
+      ta_nation = #{nation,jdbcType=VARCHAR},
+      ta_gender = #{gender,jdbcType=INTEGER},
+      ta_phonenum = #{phonenum,jdbcType=VARCHAR},
+      ta_email = #{email,jdbcType=VARCHAR},
+      ta_salt = #{salt,jdbcType=VARCHAR},
+      ta_password = #{password,jdbcType=VARCHAR},
+      ta_creatime = #{creatime,jdbcType=TIMESTAMP},
+      ta_org_id = #{orgId,jdbcType=VARCHAR},
+      ta_del = #{del,jdbcType=INTEGER}
+    where ta_id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
